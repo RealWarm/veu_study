@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample14</title>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script>
+
+        var vue = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello, Vue.js !!!'
+            },
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.trace('- Vue::beforeCreate() invoked.', params);
+                console.warn('\t1. this:', this);
+
+                // console.warn('\t2. data:', data);    // X: [Vue warn]: Error in created hook: "ReferenceError: data is not defined"
+                // console.warn('\t3. this.data:', this.data);                     // X: undefined
+                // console.debug('\t4. this.fetchData():', this.fetchData());       // X: TypeError: this.fetchData is not a function
+                // console.debug('\t5. this.fetchData:', this.fetchData);           // X: undefined
+
+                console.debug('\t6. this.message:', this.message);
+
+
+            } // beforeCreate
+
+        }); // Vue.
+
+        console.debug('- vue:', vue);
+        console.debug('- vue.message:', vue.message);
+
+    </script>
+</body>
+</html> 

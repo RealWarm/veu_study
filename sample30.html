@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample30</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>To display two LOCAL component.</h1>
+
+        <!-- To display two LOCAL component -->
+        <my-component1></my-component1> <p/>
+        <my-component2></my-component2>
+    </div>
+
+    <hr>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+
+        // *** NOTICE:
+        // The registered LOCAL component may be applied to the tag selected by Vue instance with 'el' property.
+
+        // To declare 1st. Vue LOCAL component.
+        var localComponent1 = {
+
+            // ** NOTICE:
+            //  The content of 'template' property must include HTML tag, NOT User-definded tag and no Tag
+            //  If NOT, Vue compile error occurred.
+            //      ex) [Vue warn]: Error compiling template: Component template requires a root element, rather than just text.
+            template: '<h2>The 1st. LOCAL component: {{ dataOfLocalComponent1 }}</h2>',
+
+            // 'data' property could include simple object or function like below.
+            //  But, this property should return object with 'key: value' pair properties.
+            //-------------------------------------------------//
+            // 1) ES5 : OK
+            //-------------------------------------------------//
+            // data: function f_localComponent1_data(params) {
+            //     // params: VueComponent object delivered.
+            //     console.debug('- Params of the data function of localComponent1:', params);
+
+            //     // Must return object as a data.
+            //     return {
+            //         dataOfLocalComponent1: 100
+            //     }
+            // } // data
+
+            //-------------------------------------------------//
+            // 2) ES5 : X
+            //-------------------------------------------------//
+            // data: {                                     
+            //     dataOfLocalComponent1: 100
+            // } // data
+
+            //-------------------------------------------------//
+            // 3) ES6 : OK
+            //-------------------------------------------------//
+            data() {     
+                ;;           
+                return {
+                    dataOfLocalComponent1: 100
+                }
+            } //data
+
+        }; // localComponent1
+
+        console.warn('- localComponent1:', localComponent1);
+
+        //--------------------------------------------------------//
+
+        // To declare 2nd. Vue LOCAL component.
+        var localComponent2 = {
+
+            // ** NOTICE:
+            //  The content of 'template' property must include HTML tag, NOT User-definded tag and no Tag
+            //  If NOT, Vue compile error occurred.
+            //      ex) [Vue warn]: Error compiling template: Component template requires a root element, rather than just text.
+            template: '<h2>The 2nd. LOCAL component: {{ dataOfLocalComponent2 }}</h2>',
+
+            // 'data' property could include simple object or function like below.
+            //  But, this property should return object with 'key: value' pair properties.
+            data: function f_localComponent2_data(params) {
+                // params: VueComponent object delivered.
+                console.debug('- Params of the data function of localComponent2:', params);
+
+                console.warn('- this in data properties:', this);
+
+                // Must return object as a data.
+                return {
+                    dataOfLocalComponent2: 200
+                }
+            } // data
+
+        }; // localComponent2
+
+        console.warn('- localComponent2:', localComponent2);
+
+        //--------------------------------------------------------//
+
+        // The Vue Instance created with two LOCAL components.
+        new Vue({
+
+            el: '#app',
+
+            components: {
+                'my-component1': localComponent1,
+                'my-component2': localComponent2
+            } // components
+
+        }); // Vue.
+
+    </script>
+
+</body>
+</html>

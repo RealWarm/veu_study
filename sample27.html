@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample27</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h1>1st. Vue Instance Scope</h1>
+
+        1. global: <my-global-component></my-global-component>                      <!-- OK -->
+        2. local : <my-local-component></my-local-component>                        <!-- OK -->
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <h1>2nd. Vue Instance Scope</h1>
+
+        1. global: <my-global-component></my-global-component>                      <!-- OK -->
+
+        <!-- [Vue warn]: Unknown custom element: <my-local-component-1> - 
+            did you register the component correctly? 
+            For recursive components, make sure to provide the "name" option -->
+        2. local : <my-local-component></my-local-component>                        <!-- X -->
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+    
+        // *** NOTICE:
+        // Automatically, The registered GLOBAL component is applied to the id='app' tag.
+        // if there is no tag with id='app' attribute, this GLOBAL component can't be applied.
+
+        // To declare Vue GLOBAL component.
+        Vue.component(
+            'my-global-component',
+            {
+                template: '<div>The GLOBAL component.</div>'
+            }
+        );
+
+        //--------------------------------------------------//
+
+        // *** NOTICE:
+        // The registered LOCAL component may be applied to the tag selected by Vue instance with 'el' property.
+
+        // To declare Vue LOCAL component.
+        var localComponent = {
+            template: '<div>The LOCAL component.</div>'
+        };
+
+        // 1st. Vue Instance created.
+        var vue1 = new Vue({
+            el: '#app',
+
+            // To register Vue LOCAL compponents.
+            components: {
+                'my-local-component': localComponent
+            }
+        });
+
+        // 2nd. Vue Instance created without 'components' property.
+        //      Even though without no properties related to the Vue component,
+        //      The GLOBAL vue components declared in elsewhere registered automatically to this.
+        var vue2 = new Vue({
+            el: '#app2'
+
+        });
+    
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample51</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <button v-on:click="getData">Get JSON Document from Server</button>
+    </div>
+
+    <!-- ------------------------------------------------------- -->
+
+    <script>
+    
+        var vue = new Vue({
+
+            el: '#app',
+
+            methods: {
+
+                getData: function f_getData(event) {
+                    console.warn('- vue::methods::f_getData(e) invoked.');
+
+                    // To get JSON document from server by using a various types of axios API.
+                    // URL: https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json
+                    
+                    // 1. Usage: axios(config).then(f).catch(f);
+                    //           .then(f) and .catch(f) are optional.
+                    //           default method: GET if not specified.
+                    var result = axios({
+                        // url: 'httpss://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json',
+                        // url: 'https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json1',
+                        url: 'https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json',
+                        // method: 'get'
+                        method: 'post'
+                    }).catch(function f_catch(err) {
+                        console.debug(`1. typeof err: ${ typeof err }, typename: ${ err.constructor.name }`);
+                        console.debug('2. err:', err);
+
+                    }); // axios::catch
+
+                    console.debug('3. result:', result);        // ES6: Promise built-in object.
+
+                } // f_getData
+
+            } // methods
+
+        }); // Vue Instance.
+    
+    </script>
+
+</body>
+</html>

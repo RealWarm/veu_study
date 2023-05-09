@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample13</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message1 }} <br>
+        {{ message2 }} <br>
+
+        <hr/>
+
+        {{ message1 }} <br>
+        {{ message2 }} <br>
+
+        <hr/>
+
+        <!-- [Vue warn]: Property or method "message3" is not defined on the instance but referenced during render. 
+             Make sure that this property is reactive, either in the data option, or for class-based components, 
+             by initializing the property. -->
+        <p>1. {{ message3 }}</p>
+
+        <hr/>
+
+        <!-- [Vue warn]: Property "message3" must be accessed with "$data.message3" 
+        because properties starting with "$" or "_" are not proxied in the Vue instance 
+        to prevent conflicts with Vue internals -->
+        <p>2. {{ $data.message1 }}</p>
+        <p>3. {{ $data.message2 }}</p>
+        <p>4. {{ $data.message3 }}</p>
+
+        <hr/>
+    </div>
+
+    {{message1}}
+
+    <hr/>
+
+
+    <script>
+
+        var datas = {
+            message1: 'message1',
+            message2: 'message2'
+        };
+
+        console.debug('- datas:', datas);
+
+
+        var vue = new Vue({
+            el: '#app',
+            data: datas,
+
+
+            //----------------- Vue lifecycle properties -----------------//
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.trace('- Vue::beforeCreate() invoked. params: ', params);
+            }, // beforeCreate
+
+            created: function f_created(params) {
+                console.trace('- Vue::created() invoked. params: ', params);
+            }, // created
+
+            beforeMount: function f_beforeMount(params) {
+                console.trace('- Vue::beforeMount() invoked. params: ', params);
+            }, // beforeMount
+
+            mounted: function f_mounted(params) {
+                console.trace('- Vue::mounted() invoked. params: ', params);
+            }, // mounted
+
+            beforeUpdate: function f_beforeUpdate(params) {
+                console.trace('- Vue::beforeUpdate() invoked. params: ', params);
+            }, // beforeUpdate
+
+            updated: function f_updated(params) {
+                console.trace('- Vue::updated() invoked. params: ', params);
+            }, // updated
+
+            beforeDestroy: function f_beforeDestroy(params) {
+                console.trace('- Vue::beforeDestroy() invoked. params: ', params);
+            }, // beforeDestroy
+
+            destroyed: function f_destroyed(params) {
+                console.trace('- Vue::destroyed() invoked. params: ', params);
+            } // destroyed
+
+        }); // Vue.
+
+        console.debug('- vue:', vue);
+
+
+        // Update mounted datas.
+        datas.message1 = 'message1 updated';
+        datas.message2 = 'message2 updated';
+
+        // Add message into the existed data.
+        datas.message3 = 'message3 created';
+
+        // Destroy Vue instance manually.
+        console.debug('- window:', window);
+        console.debug('- window.vue:', window.vue);
+
+        // vue = null;         // X 
+        // vue = undefined;    // X
+
+        // delete vue;         // X
+        // delete window.vue;  // X
+        // delete window['vue'];  // X
+
+        // var vueName = Object.keys(vue)[0];
+        // console.debug('- vueName:', vueName);
+        // delete window[vueName];     // X
+
+        // console.debug('- after deleting window.vue:', window);
+
+    </script>
+</body>
+</html> 

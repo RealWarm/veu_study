@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample19</title>
+</head>
+<body>
+    <div id="app">
+        1. message1: {{ message1 }}
+
+        <hr/>
+        
+        2. message2: {{ message2 }}
+    </div>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script>
+
+        var vueData = {
+            message1: 'message1',
+            message2: 'message2'
+        };
+
+        console.debug('- vueData:', vueData);
+
+
+        var vue = new Vue({
+            el: '#app',
+            data: vueData,
+
+
+            //----------------- Vue lifecycle properties -----------------//
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.warn('- Vue::beforeCreate() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+
+                console.debug('\t+ this.$el:', this.$el);           // undefined
+                console.debug('\t+ this.$data:', this.$data);       // undefined
+                // console.debug('\t+ this.$data.message1:', this.$data.message1);       // TypeError: Cannot read property 'message1' of undefined
+
+            }, // beforeCreate
+
+            created: function f_created(params) {
+                console.warn('- Vue::created() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+
+                console.debug('\t+ this.$el:', this.$el);           // undefined
+                console.debug('\t+ this.$data:', this.$data);       // OK - {__ob__: Observer}
+                // console.debug('\t+ this.$data.message1:', this.$data.message1);       // OK
+
+            }, // created
+
+            beforeMount: function f_beforeMount(params) {
+                console.warn('- Vue::beforeMount() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+
+                console.debug('\t+ this.$el:', this.$el);           // OK - <div> tag HTML element
+                console.debug('\t+ this.$data:', this.$data);       // OK - {__ob__: Observer}
+                // console.debug('\t+ this.$data.message1:', this.$data.message1);       // OK
+
+            }, // beforeMount
+
+            mounted: function f_mounted(params) {
+                console.warn('- Vue::mounted() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+                
+                console.debug('\t+ this.$el:', this.$el);           // OK - <div> tag HTML element
+                console.debug('\t+ this.$data:', this.$data);       // OK - {__ob__: Observer}
+                // console.debug('\t+ this.$data.message1:', this.$data.message1);       // OK
+
+                //------------------------------------------------------------------------//
+
+                this.message1 = 'message1 updated';
+
+                // Add message into the existed data.
+                this.message2 = 'message2 created';
+
+                //------------------------------------------------------------------------//
+
+                console.debug('\t+ this.$data after changing:', this.$data);                        // OK - {__ob__: Observer}
+                console.debug('\t+ this.$data.message1 after changing:', this.$data.message1);       // OK
+                console.debug('\t+ this.$data.message2 after changing:', this.$data.message2);       // OK
+
+            }, // mounted
+
+            beforeUpdate: function f_beforeUpdate(params) {
+                console.warn('- Vue::beforeUpdate() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+                
+                console.debug('\t+ this.$el:', this.$el);           // OK - <div> tag HTML element
+                console.debug('\t+ this.$data:', this.$data);       // OK - {__ob__: Observer}
+                console.debug('\t+ this.$data.message1:', this.$data.message1);       // OK
+
+            }, // beforeUpdate
+
+            updated: function f_updated(params) {
+                console.warn('- Vue::updated() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+                
+                console.debug('\t+ this.$el:', this.$el);           // OK - <div> tag HTML element
+                console.debug('\t+ this.$data:', this.$data);       // OK - {__ob__: Observer}
+                console.debug('\t+ this.$data.message1:', this.$data.message1);       // OK
+
+            }, // updated
+
+            beforeDestroy: function f_beforeDestroy(params) {
+                console.warn('- Vue::beforeDestroy() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+                
+                console.debug('\t+ this.$el:', this.$el);           // Unknown
+                console.debug('\t+ this.$data:', this.$data);       // Unknown
+                console.debug('\t+ this.$data.message1:', this.$data.message1);       // Unknown
+
+            }, // beforeDestroy
+
+            destroyed: function f_destroyed(params) {
+                console.warn('- Vue::destroyed() invoked. params: ', params);
+                console.debug(`\t+ this.message1: ${this.message1}, this.message2: ${this.message2}`);
+                console.debug('\t+ vueData:', vueData);
+
+                //------------------------------------------------------------------------//
+
+                // console.debug('\t+ this.el:', this.el);             // undefined
+                // console.debug('\t+ this.data:', this.data);         // undefined
+                
+                console.debug('\t+ this.$el:', this.$el);           // Unknown
+                console.debug('\t+ this.$data:', this.$data);       // Unknown
+                console.debug('\t+ this.$data.message1:', this.$data.message1);       // Unknown
+
+            } // destroyed
+
+        }); // Vue.
+
+        // console.debug('- vue:', vue);
+
+    </script>
+
+</body>
+</html> 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample21</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>To Register Several Vue Global Components At The Same Time.</h2>
+
+        <hr/>
+
+        <!-- To display the registered global Vue component -->
+        1. scope: <my-component1></my-component1> <br>              <!-- OK -->
+        1. scope: <my-component2></my-component2> <br>              <!-- OK -->
+        <!-- 1. scope: <my-component3></my-component3> <br> -->     <!-- OK --> 
+    </div>
+
+    <hr/>
+
+    <!-- To display the registered global Vue component in the 2nd. id='app' tag -->
+    <pre id="app">
+        2. scope: <my-component3></my-component3>                   <!-- X -->
+    </pre>
+
+    <hr/>
+
+    <!-- To display the registered global Vue component -->
+    3. scope: <my-component1></my-component1> <br>                  <!-- X -->
+    3. scope: <my-component2></my-component2> <br>                  <!-- X -->
+    3. scope: <my-component3></my-component3> <br>                  <!-- X -->
+
+    <!-- ------------------------------------------------------------------ -->
+
+    <script>
+        
+        console.warn('- Vue:', Vue);            // Vue: ƒ Vue (options) {...}
+
+        //------------------------------------------//
+
+        Vue.component('my-component1', {
+            template: '<div>Registered the first global Vue component</div>'
+        }); // To regist a global Vue component.
+
+        Vue.component('my-component2', {
+            template: '<div>Registered the second global Vue component</div>'
+        }); // To regist a global Vue component.
+
+        Vue.component('my-component3', {
+            template: '<div>Registered the third global Vue component</div>'
+        }); // To regist a global Vue component.
+
+        //------------------------------------------//
+
+        new Vue({
+            el: '#app'
+        });
+        
+    </script>
+</body>
+</html>

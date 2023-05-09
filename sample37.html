@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample37</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h1>To tranfer the event occured in the SUB component onto the SUPER component.</h1>
+
+        <hr/>
+
+        <child-component v-on:event-from-global-component='printEvent' v-bind:propsdata='message'></child-component>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+
+        // 1. To register a GLOBAL component.
+        Vue.component(
+            'child-component',
+
+            {
+                props: [ 'propsdata' ],
+
+                template: "<button v-on:click='emitEvent'>{{ propsdata }}</button>",
+
+                methods: {
+
+                    emitEvent: function f_emitEvent(event) {
+                        console.warn('- Global Component::methods::emitEvent(event) invoked.');
+
+                        // *** NOTICE: 
+                        //      this event is a MouseEvent object in this case.
+                        console.debug('\t+ event:', event);
+                        
+
+                        // *** NOTICE: 
+                        //      this keyword is the current SUB component itself.
+                        console.debug('\t+ this:', this);           // VueComponent object.
+                        
+                        // *** NOTICE:
+                        //      [Vue tip]: Event "eventfromglobalcomponent" is emitted in component <ChildComponent> 
+                        //      but the handler is registered for "EventFromGlobalComponent". 
+                        // 
+                        //      Note that HTML attributes are case-insensitive and you cannot use v-on to listen to camelCase events 
+                        //      when using in-DOM templates. 
+                        //
+                        //      You should probably use "event-from-global-component" instead of "EventFromGlobalComponent".
+                        
+                        // this.$emit('EventFromGlobalComponent');     // X - listen to the above NOTICE.
+                        this.$emit('event-from-global-component');
+
+                    } // f_emitEvent
+
+                } // methods
+            }
+        ); // GLOBAL component.
+
+
+        //--------------------------------------------------------//
+
+
+        var vue = new Vue({
+
+            el: '#app',
+
+            data: {
+                message: "ROOT COMPONENT's MESSAGE"
+            }, // data
+
+            methods: {
+
+                printEvent: function f_printEvent(params) {
+                    console.warn('ROOT::printEvent(params) invoked.');
+                    console.debug('\t+ event:', params);                    // undefined
+
+                    // *** NOTICE: 
+                    //      this keyword is the current SUB component itself.
+                    console.debug('\t+ this:', this);           // Vue object.
+
+
+                    this.message = 'Changed';
+                    console.debug('\t+ data:', this.message);
+                } // f_printEvent
+
+            } // methods
+
+        }); // ROOT component.
+        
+    </script>
+    
+</body>
+</html>

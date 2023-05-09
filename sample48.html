@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample48</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <button v-on:click="getData">Get JSON Document from Server</button>
+    </div>
+
+    <!-- ------------------------------------------------------- -->
+
+    <script>
+    
+        var vue = new Vue({
+
+            el: '#app',
+
+            methods: {
+
+                getData: function f_getData(event) {
+                    console.warn('- vue::methods::f_getData(e) invoked.');
+                    console.debug('\t+ event:', event);         // In this case, MouseEvent obj.
+                    console.debug('\t+ axios:', axios);         // function
+
+                    // To get JSON document from server by using axios library.
+                    // Default usage: axios.get(URL).then(function).catch(function);
+                    axios.
+                        get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json'). // axios::get
+                        then(function f_then(response) {        // Invoked when HTTP response message arrived.
+                            console.warn('\t+ axios::then(f) invoked.');
+                            console.debug('\t\t+ response:', response);
+
+                            // 1. How to get property list of the specified JS object.
+                            //    By using enhanced for-in syntax, 
+                            for(var propName in response) {                             // OK
+                                console.debug(`\t\t++ propName: ${propName},\t\t\tpropVal: ${ response[propName] }`);
+                                
+                            } // enhanced for-in
+
+                            // 2. How to get property of the specified JS object.   
+                            //    But not allowed to use enhanced for-of syntax cause response not iterable.
+                            // for(var prop of response) {                                  // X
+                            //     console.debug('\t\t++ prop:', prop);
+                            // } // enhanced for-of
+
+                            //-----------------------------------------------------//
+
+                            var jsonObj = response.data;
+                            console.debug('\t\t+ jsonObj:', jsonObj);
+
+                        }). // axios::then
+                        catch(function f_catch(error) {     // error handler
+                            console.warn('\t+ axios::catch(f) invoked.');
+                            console.debug('\t\t++ error:', error);                      // Error message displayed.
+                            console.debug('\t\t++ typeof error:', typeof error);        // object
+                            console.debug('\t\t++ error.constructor.name:', error.constructor.name);     // type name of error -> Error
+
+                        }); // axios::catch
+
+                } // f_getData
+
+            } // methods
+
+        }); // Vue Instance.
+    
+    </script>
+
+</body>
+</html>

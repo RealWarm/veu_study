@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CreateVueCompTree.html</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h1>1st. Vue instance scope.</h1>
+
+        <my-global-component></my-global-component>
+        <my-local-component></my-local-component>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+    
+        Vue.component(
+            'my-global-component', {
+                template: '<div>The GLOBAL component.</div>'
+            }
+        ); // Vue.component
+
+        //-------------------------------------------------------------//
+
+        var localComponent = {
+            template: 
+                `<div>
+                    The LOCAL component. 
+                    
+                    </p> 
+                    
+                    <!-- OK -->
+                    <SubLocalComponent1></SubLocalComponent1>
+                    <SubLocalComponent2></SubLocalComponent2>
+
+                    <hr/>
+
+                    <SubLocalComponent1>                        
+                        <SubLocalComponent2></SubLocalComponent2>   <!-- X -->
+                    </SubLocalComponent1>
+
+                    <hr/>
+                    
+                    <SubLocalComponent2></SubLocalComponent2>
+                    <LeafComponent/>        <!-- X -->
+                </div>`,
+
+            components: {
+                
+                'SubLocalComponent1': {
+                    template: '<h3>SubLocalComponent2: {{ SubLocalData1 }}, {{ SubLocalData2 }}</h3>',
+                    
+                    // ** NOTICE ** : The type rule of "data" option.
+                    // 
+                    //  The "data" option should be a function 
+                    //  that returns a per-instance value in component definitions.
+
+                    //-------------------------------------------------
+                    // 1. X : Violation of the type rule of "data" option
+                    //-------------------------------------------------
+                    // data: {
+                    //     'SubLocalData1': 1000,
+                    //     'SubLocalData2': 2000
+                    // } // data
+
+                    //-------------------------------------------------
+                    // 2. OK: ES5 function
+                    //-------------------------------------------------
+                    // data: function () {
+                    //     ;;
+
+                    //     return {
+                    //         'SubLocalData1': 1000,
+                    //         'SubLocalData2': 2000
+                    //     };
+                    // }, // data
+
+                    //-------------------------------------------------
+                    // 3. OK: ES6 method
+                    //-------------------------------------------------
+                    data() {;
+
+                        return {
+                            'SubLocalData1': 1000,
+                            'SubLocalData2': 2000
+                        };
+                    }, // data
+                }, // SubLocalComponent1
+                
+                'SubLocalComponent2': {
+                    template: 
+                        `<div> 
+                            <h3>SubLocalComponent2: {{ SubLocalData3 }}, {{ SubLocalData4 }}</h3>
+                            <LeafComponent/>    <!-- OK -->
+                         </div>`,
+
+                    //-------------------------------------------------
+                    // 3. OK: ES6 method
+                    //-------------------------------------------------
+                    data() {
+
+                        return {
+                            'SubLocalData3': 1000,
+                            'SubLocalData4': 2000
+                        };
+                    }, // data
+
+                    components: {
+
+                        'LeafComponent': {
+                            template: '<h2>LeafComponent: {{ LeafData1 }}, {{ LeafData2 }}</h2>',
+
+                            data() {
+                                return {
+                                    'LeafData1': 'Yoseph',
+                                    'LeafData2': 24
+                                };
+                            } // data
+                        } // LeafComponent
+
+                    } // components
+                } // SubLocalComponent1
+
+            } // components
+        }; // localComponent
+
+        //-------------------------------------------------------------//
+
+        var vue = new Vue({
+            el: '#app',
+
+            components: {
+                'my-local-component': localComponent
+            } // components
+        }); // Vue
+    
+    </script>
+
+</body>
+</html>

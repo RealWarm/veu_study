@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample20</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>To Register a Vue Global Component</h1>
+
+        <hr/>
+
+        <!-- To display the registered global Vue component -->
+        1. scope: <my-component></my-component>                 <!-- OK -->
+    </div>
+
+    <hr/>
+
+    <!-- To display the registered global Vue component 
+         in the 2nd. id='app' tag -->
+    <pre id="app">
+        2. scope: <my-compoennt></my-compoennt>
+    </pre>
+
+    <hr/>
+    
+    <!-- To display the registered global Vue component -->
+    3. scope: <my-local-component></my-local-component>         <!-- X -->
+
+    <!-- ------------------------------------------------------------------ -->
+
+    <script>
+        
+        console.warn('- Vue:', Vue);            // Vue: ƒ Vue (options) {...}
+
+
+        Vue.component('my-component', {
+            template: '<div>Registered a global Vue component</div>'
+        }); // To regist a global Vue component.
+
+        //------------------------------------------//
+
+        new Vue({
+            el: '#app'
+        });
+        
+    </script>
+</body>
+</html>

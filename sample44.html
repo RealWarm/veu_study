@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample44</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <router-view name="header2"></router-view>
+        <router-view name="body2"></router-view>
+        <router-view name="footer2"></router-view>
+
+        <hr/>
+        
+        <router-view name="loginHeader"></router-view>
+        <router-view name="loginBody"></router-view>
+        <router-view name="loginFooter"></router-view>
+    </div>
+
+
+    <script>
+    
+        //-------------------------------------------------------//
+        // 1. To define User-defined Vue Components.
+        //-------------------------------------------------------//
+        var bodyComponent = {
+            template: '<div>This is a BODY.</div>'
+        };  // VueComponent
+
+        var headerComponent = {
+            template: '<div>This is a HEADER.</div>'
+        };  // VueComponent
+
+        var footerComponent = {
+            template: '<div>This is a FOOTER.</div>'
+        };  // VueComponent
+
+        //-------------------------------------------------------//
+
+        var loginHeaderComponent = {
+            template: '<h2>LOGIN HEADER</h2>'
+        };  // VueComponent
+
+        var loginBodyComponent = {
+            template: '<h2>LOGIN FORM</h2>'
+        }; // VueComponent
+
+        var loginFooterComponent = {
+            template: '<h2>LOGIN FOOTER</h2>'
+        }; // VueComponent
+        //-------------------------------------------------------//
+
+
+        //-------------------------------------------------------//
+        // 2. To define Vue routing table.
+        //-------------------------------------------------------//
+        var routes = [
+
+            {
+                path: '/',
+
+                components: {
+                    body2   :   bodyComponent,
+                    header2 :   headerComponent,
+                    footer2 :   footerComponent,
+                }   // link a <router-view name='<View Name>' to the specified Vue Component.
+            },
+
+            {
+                path: '/login',
+
+                components: {
+                    loginHeader :   loginHeaderComponent,
+                    loginBody   :   loginBodyComponent,
+                    loginFooter :   loginFooterComponent
+                }   // link a <router-view name='<View Name>' to the specified Vue Component.
+            }
+
+        ]; // Vue routing table outside of a VueRouter
+
+
+        //-------------------------------------------------------//
+        // 3. To create a Vue Router 
+        //-------------------------------------------------------//
+        var router = new VueRouter({
+            mode: 'hash',                // OK - default
+            // mode: 'history',                // X  - Not to display the specified Vue components
+
+            routes: routes
+
+        }); // VueRouter.
+
+        console.warn('- Vue router:', router);
+
+
+        //-------------------------------------------------------//
+        // 4. To create a Vue Instance
+        //-------------------------------------------------------//
+        var vue = new Vue({
+
+            el: '#app',
+
+            router: router
+
+        }); // Vue Instance
+        // }).$mount('#app');  // Vue Instance
+
+        console.warn('- Vue instance:', vue);
+
+    </script>
+
+</body>
+</html>

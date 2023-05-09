@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample54</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- 1. In the case that there is no 'template' property            -->
+    <!-- -------------------------------------------------------------- -->
+
+    <div id="app" v-once>
+        <h3>{{ message }}</h3>
+    </div>
+
+
+    <script>
+    
+        var vue = new Vue({
+
+            el: '#app',
+            
+            data: {
+                message: "1. Hello, Vue.js!",
+                message2: "2. Hello2"
+            }
+
+        }); // Vue Instance (ROOT component)
+
+        console.warn(vue);
+
+        vue.message = 'changed';                // OK
+        vue.message2 = 'changed.';              // OK
+        // vue._data.message = 'changed.';         // OK
+
+    </script>
+
+    <hr/>
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- 2. In the case that there is used 'template' property          -->
+    <!-- -------------------------------------------------------------- -->
+
+    <div id="app2"></div>
+
+
+    <script>
+    
+        new Vue({
+
+            el: '#app2',
+
+            data: {
+                message: "2. Hello, Vue.js!"
+            },
+
+            template: "<h3>{{ message }}</h3>"
+
+        }); // Vue Instance (ROOT component)
+
+    </script>
+
+</body>
+</html>

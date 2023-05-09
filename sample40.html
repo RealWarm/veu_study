@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample40</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+
+        <h1>Vue Router Example</h1>
+
+        <hr/>
+
+        <p>
+            <!-- Accoring to the specified URI, move to the Vue component to display -->
+            <router-link to="/main">Move to Main</router-link>
+            <router-link to="/login">Move to Login</router-link>
+        </p>
+
+        <hr/>
+
+        <router-view></router-view>         <!-- View scope to display the specified Vue component -->
+        
+    </div>
+
+    <script>
+    
+        //----------------------------------------------------------//
+        // To define Vue Components.
+        //----------------------------------------------------------//
+        var mainComponent = {
+            template: '<div>Main</div>'
+        };
+
+        var loginComponent = {
+            template: '<div>Login</div>'
+        };
+
+        //----------------------------------------------------------//
+        // To define of Vue routing table.
+        //----------------------------------------------------------//
+        var routingTbl = [
+
+            { path: '/main', component: mainComponent },
+            { path: '/login', component: loginComponent }
+
+        ]; // Routing Table
+
+        console.debug('- Vue Routing Table:', routingTbl);
+
+        //----------------------------------------------------------//
+        // To create a Vue Router.
+        //----------------------------------------------------------//
+        var vueRouter = new VueRouter({
+
+            routes: routingTbl,                  // Routing Table
+
+            // option1: 'value1',
+            // option2: 'value2'
+
+            // mode: 'hash'                            // Vue mode: 'hash' or 'history'
+            mode: 'history'                         // Vue mode: 'hash' or 'history'
+
+        }); // Vue Router
+
+        console.debug('- Vue Router:', vueRouter);
+        console.debug('\t+ options:', vueRouter.options);
+        console.debug('\t+ options to JSON:', JSON.stringify(vueRouter.options));
+
+        //----------------------------------------------------------//
+        // To create a Vue Instance (ROOT component) with Vue Router.
+        //----------------------------------------------------------//
+        var vue = new Vue({
+            // el: '#app',                             // OK
+            router: vueRouter,                      // Vue Router
+
+        // }); // Vue Instance
+        }).$mount('#app'); // Vue Instance
+
+        console.debug('- Vue Instance:', vue);
+    
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+

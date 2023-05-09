@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample39</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Event transfer between Vue Components by using Vue Event Bus.</h1>
+
+        <hr/>
+
+        <child-component></child-component>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+
+        // 1. To create a NEW Vue Instance as a Event Bus.
+        var eventBus = new Vue();
+
+        // 2. To register a GLOBAL component into ROOT component.
+        Vue.component(
+            'child-component',
+
+            {
+                template: "<div>Global Component Scope: <button v-on:click='emitEvent'>Emit Event</button></div>",
+
+                methods: {
+
+                    emitEvent: function f_emitEvent(params) {
+                        console.warn('- child-component::emitEvent(event) invoked.');
+
+                        // *** NOTICE: 
+                        //      this event is a MouseEvent object in this case.
+                        console.debug('\t+ event:', event);
+                        
+
+                        // *** NOTICE: 
+                        //      this keyword is the current SUB component itself.
+                        console.debug('\t+ this:', this);           // VueComponent object.
+
+
+                        // Emit the specified event through Event Bus (this, ROOT component as a Event Bus)
+                        eventBus.$emit("triggerEventBus", 1000);
+                        
+                    } // f_emitEvent
+
+                } // methods
+            }
+
+        ); // Vue.component
+
+
+        //---------------------------------------------//
+
+        var vue = new Vue({
+            el: '#app',
+
+
+            //----------------- Vue lifecycle properties -----------------//
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.debug('- Vue::beforeCreate(params) invoked. params: ', params);
+            }, // beforeCreate
+
+            created: function f_created(params) {
+                console.debug('- Vue::created(params) invoked. params: ', params);
+
+                eventBus.$on(
+                    'triggerEventBus',
+
+                    function f_on(receivedDataThroughTransferedEventByEventBus) {
+                        console.warn('- ROOT::created::f_on(receivedDataThroughTransferedEventByEventBus) invoked.');
+                        console.debug('\t+ receivedDataThroughTransferedEventByEventBus:', receivedDataThroughTransferedEventByEventBus);
+                        console.debug('\t+ this:', this);                       // this: Vue Instance (ROOT component)
+
+                    } // f_on
+                ); // eventBus.$on
+
+            }, // created
+
+            beforeMount: function f_beforeMount(params) {
+                console.debug('- Vue::beforeMount(params) invoked. params: ', params);
+
+                eventBus.$on(
+                    'triggerEventBus',
+
+                    function f_on(receivedDataThroughTransferedEventByEventBus) {
+                        console.warn('- ROOT::beforeMount::f_on(receivedDataThroughTransferedEventByEventBus) invoked.');
+                        console.debug('\t+ receivedDataThroughTransferedEventByEventBus:', receivedDataThroughTransferedEventByEventBus);
+                        console.debug('\t+ this:', this);                       // this: Vue Instance (ROOT component)
+
+                    } // f_on
+                ); //  eventBus.$on
+
+            }, // beforeMount
+
+            mounted: function f_mounted(params) {
+                console.debug('- Vue::mounted(params) invoked. params: ', params);
+            }, // mounted
+
+            beforeUpdate: function f_beforeUpdate(params) {
+                console.debug('- Vue::beforeUpdate(params) invoked. params: ', params);
+            }, // beforeUpdate
+
+            updated: function f_updated(params) {
+                console.debug('- Vue::updated(params) invoked. params: ', params);
+            }, // updated
+
+            beforeDestroy: function f_beforeDestroy(params) {
+                console.debug('- Vue::beforeDestroy(params) invoked. params: ', params);
+            }, // beforeDestroy
+
+            destroyed: function f_destroyed(params) {
+                console.debug('- Vue::destroyed(params) invoked. params: ', params);
+            } // destroyed
+
+        }); // ROOT component.
+
+    </script>
+    
+
+</body>
+</html>

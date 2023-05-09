@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample6</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message1 }} <br>
+        {{ message2 }}
+    </div>
+
+    <hr/>
+
+    {{message1}}
+    {{message2}}
+
+    <script>
+
+        var datas = {
+            message1: 'message1',
+            message2: 'message2'
+        };
+
+        console.debug('- datas:', datas);
+
+        
+        var vue = new Vue({
+            el: '#app',
+            data: datas
+        }); // Vue.
+
+        console.debug('- vue:', vue);
+
+    </script>
+</body>
+</html> 

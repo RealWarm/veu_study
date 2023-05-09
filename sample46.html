@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample46</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <button v-on:click="getData">Get JS framework list from the SERVER</button>
+    </div>
+
+    <script>
+    
+        var vue = new Vue({
+
+            el: '#app',
+
+            methods: {
+
+                getData: function f_getData(event) {
+                    console.warn('Vue::methods::f_getData(event) invoked.');
+                    console.debug('\t+ this.$http:', this.$http);               // function
+                    
+                    this.$http.
+                        get('http://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json').
+                        then(function f_then(response) {
+                            console.debug('\t+ this.$http.get(URL).then(response) called back.');
+                            console.debug('\t\t++ response:', response);
+
+                            // 1. How to get property list of the specified JS object.
+                            //    By using enhanced for-in syntax, 
+                            for(var propName in response) {                             // OK
+                                console.debug(`\t\t++ propName: ${propName},\t\t\tpropVal: ${ response[propName] }`);
+                                
+                            } // enhanced for-in
+
+                            // 2. How to get property of the specified JS object.   
+                            //    But not allowed to use enhanced for-of syntax cause response not iterable.
+                            // for(var prop of response) {                                  // X
+                            //     console.debug('\t\t++ prop:', prop);
+                            // } // enhanced for-of
+
+                        }); // Vue Resource::then
+
+
+                } // f_getData
+
+            } // methods
+
+        }); // Vue Instance (ROOT component)
+    
+    </script>
+    
+</body>
+</html>

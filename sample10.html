@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample10</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message1 }} <br>
+        {{ message2 }} <br>
+
+        <hr/>
+
+        <!-- [Vue warn]: Property or method "message3" is not defined on the instance but referenced during render. 
+             Make sure that this property is reactive, either in the data option, or for class-based components, 
+             by initializing the property. -->
+        <p>{{ message3 }}</p>
+
+        <hr/>
+    </div>
+
+    {{message1}}
+
+    <hr/>
+
+
+    <script>
+
+        var datas = {
+            message1: 'message1',
+            message2: 'message2'
+        };
+
+        console.debug('- datas:', datas);
+
+
+        var vue = new Vue({
+            el: '#app',
+            data: datas,
+
+
+            //----------------- Vue lifecycle properties -----------------//
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.debug('- Vue::beforeCreate() invoked. params: ', params);
+            }, // beforeCreate
+
+            created: function f_created(params) {
+                console.debug('- Vue::created() invoked. params: ', params);
+            }, // created
+
+            beforeMount: function f_beforeMount(params) {
+                console.debug('- Vue::beforeMount() invoked. params: ', params);
+            }, // beforeMount
+
+            mounted: function f_mounted(params) {
+                console.debug('- Vue::mounted() invoked. params: ', params);
+            }, // mounted
+
+            beforeUpdate: function f_beforeUpdate(params) {
+                console.debug('- Vue::beforeUpdate() invoked. params: ', params);
+            }, // beforeUpdate
+
+            updated: function f_updated(params) {
+                console.debug('- Vue::updated() invoked. params: ', params);
+            }, // updated
+
+            beforeDestroy: function f_beforeDestroy(params) {
+                console.debug('- Vue::beforeDestroy() invoked. params: ', params);
+            }, // beforeDestroy
+
+            destroyed: function f_destroyed(params) {
+                console.debug('- Vue::destroyed() invoked. params: ', params);
+            } // destroyed
+
+        }); // Vue.
+
+        console.debug('- vue:', vue);
+
+
+        // Update mounted datas.
+        datas.message1 = 'message1 updated';
+        datas.message2 = 'message2 updated';
+
+        // add message into the existed data.
+        datas.message3 = 'message3 created';
+
+    </script>
+</body>
+</html> 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample26</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+    <!-- <div> -->                  <!-- X -->
+        <h1>1st. Vue instance scope.</h1>
+        <my-global-component></my-global-component>
+        <my-local-component></my-local-component>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+    
+        // *** NOTICE:
+        // Automatically, The registered GLOBAL component is applied to the id='app' tag.
+        // if there is no tag with id='app' attribute, this GLOBAL component can't be applied.
+
+        // To declare Vue GLOBAL component.
+        Vue.component(
+            'my-global-component',
+            {
+                template: '<div>The GLOBAL component.</div>'
+                // template: 'The GLOBAL component.'           // X
+            }
+        );
+
+        //--------------------------------------------------//
+
+        // *** NOTICE:
+        // The registered LOCAL component may be applied to the tag selected by Vue instance with 'el' property.
+
+        // To declare Vue LOCAL component.
+        var localComponent = {
+            template: '<div>The LOCAL component.</div>'
+        };
+
+        var vue = new Vue({
+            // el: '#app',
+
+            // To register Vue LOCAL compponents.
+            components: {
+                'my-local-component': localComponent
+            }
+        });
+    
+    </script>
+
+</body>
+</html>

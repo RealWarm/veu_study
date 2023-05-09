@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample47</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <button v-on:click="getData">Get JS framework list from the SERVER</button>
+    </div>
+
+    <script>
+    
+        var vue = new Vue({
+
+            el: '#app',
+
+            methods: {
+
+                getData: function f_getData(event) {
+                    console.warn('Vue::methods::f_getData(event) invoked.');
+                    console.debug('\t+ this.$http:', this.$http);               // function
+                    
+                    this.$http.
+                        get('http://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json').
+                        then(function f_then(response) {
+                            console.debug('\t+ this.$http.get(URL).then(response) called back.');
+
+                            // To extract JSON string from response's body.
+                            var jsonDoc = response.bodyText;
+                            console.debug('\t+ jsonDoc:', jsonDoc);
+
+                            // To convert JSON string into Javascript object:
+                            //     JSON string -> JS object
+                            var jsonObj = JSON.parse(jsonDoc);
+                            console.debug('\t+ jsonObj:', jsonObj);
+
+                        }); // Vue Resource::then
+
+
+                } // f_getData
+
+            } // methods
+
+        }); // Vue Instance (ROOT component)
+    
+    </script>
+    
+</body>
+</html>

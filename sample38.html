@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample38</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Event transfer between Vue Components by using Vue Event Bus.</h1>
+
+        <hr/>
+
+        <child-component></child-component>
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+
+        // 1. To create a NEW Vue Instance as a Event Bus.
+        var eventBus = new Vue();
+
+        // 2. To register a GLOBAL component into ROOT component.
+        Vue.component(
+            'child-component',
+
+            {
+                template: "<div>Global Component Scope: <button v-on:click='emitEvent'>Emit Event</button></div>",
+
+                methods: {
+
+                    emitEvent: function f_emitEvent(params) {
+                        console.warn('- child-component::emitEvent(event) invoked.');
+
+                        // *** NOTICE: 
+                        //      this event is a MouseEvent object in this case.
+                        console.debug('\t+ event:', event);
+                        
+
+                        // *** NOTICE: 
+                        //      this keyword is the current SUB component itself.
+                        console.debug('\t+ this:', this);           // VueComponent object.
+
+
+                        // Emit the specified event through Event Bus (this, ROOT component as a Event Bus)
+                        eventBus.$emit("triggerEventBus", 100);
+                        
+                    } // f_emitEvent
+
+                } // methods
+            }
+
+        ); // Vue.component
+
+
+        //---------------------------------------------//
+
+        var vue = new Vue({
+            el: '#app'
+
+        }); // ROOT component.
+
+    </script>
+    
+
+</body>
+</html>

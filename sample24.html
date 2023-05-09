@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample24</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>To register a local component</h1>
+
+        <hr/>
+
+        1. scope: <my-local-component></my-local-component>
+    </div>
+
+    <hr/>
+    
+    2. scope: <my-local-component></my-local-component>
+
+    <!-- ------------------------------------------------------------------ -->
+
+    <script>
+    
+        var vue = new Vue({
+            // To be registered el property into Vue instance.$el property (string).
+            el: '#app',
+
+            // To be registered el property into Vue instance.$children property (Array).
+            // The element type of the vue.$children: VueComponent object.
+            components: {
+
+                'my-local-component' : {
+                    template: '<div>Registered a local component.</div>'
+                }
+                
+            } // components
+
+        }); // Vue.
+
+        console.warn('- vue:', vue);
+        console.debug(`\t+ vue.$children.length: ${vue.$children.length}`);
+        console.debug('\t+ vue.$children:', vue.$children);
+    </script>
+
+    <!-- ------------------------------------------------------------------ -->
+
+</body>
+</html>

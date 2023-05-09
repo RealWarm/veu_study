@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample34</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h1>The data of SUPER component (Vue instance) delivered<br>
+            from super component to SUB component (GLOBAL).</h1>
+
+        <hr/>
+
+        1. message1: <global-component v-bind:propsdata1="message1"></global-component> <br>
+        2. message2: <global-component v-bind:propsdata2="message2"></global-component>
+    </div>
+
+    <hr>
+
+    <!-- ------------------------------------------------------------------ -->
+    
+    <script>
+
+        // 1. Register a GLOBAL Vue Component.
+        Vue.component(
+            'global-component',
+
+            {
+                props: [ 
+
+                    // *** NOTICE 1:
+                    //      Note that HTML attributes are case-insensitive and camelCased props need to use their kebab-case equivalents 
+                    //      when using in-DOM templates.
+
+                    // *** NOTICE 2: avoid using JavaScript keyword as property name: "super".
+
+                    // *** NOTICE 3: 
+                    //      [Vue warn]: Property or method "data" is not defined on the instance but referenced during render.
+                    
+                    // The name to receive a value of one of the SUPER component's data properties.
+                    // 'dataOfSuperComponent'                      // X - listen to the above NOTICE 1.
+                    // 'data-of-super-component'                   // X - listen to the above NOTICE 2.
+                    // 'data-of-parent-component'                  // X - listen to the above NOTICE 3.
+                    // 'parent-data'                               // X - listen to the above NOTICE 4.
+                    // 'parent-model'                              // X - listen to the above NOTICE 1.
+
+                    'propsdata1',
+                    'propsdata2'
+                ],
+
+                // *** NOTICE:
+                //      Component 'template' should contain exactly one root element. 
+                //      If you are using v-if on multiple elements, use v-else-if to chain them instead.
+                
+                // propsdata1 : OK, But propsdata2 NOT displayed.
+                // template: '<p>{{ propsdata1 }}</p><p>{{ propsdata2 }}</p>'          // X - listen to the above NOTICE
+
+                template: '<div><p>{{ propsdata1 }}</p><p>{{ propsdata2 }}</p></div>'
+            } // template
+            
+        ); // SUB component
+
+
+        //--------------------------------------------------------//
+
+
+        // *** NOTICE:
+        //      1) Vue Instance created: SUPER component automatically.
+        //      2) Originally, Vue Instance is a ROOT component in it's own scope.
+        var vue = new Vue({
+
+            el: '#app',
+
+            data: {
+                message1: 'message1',
+                message2: 'message2'
+            }
+
+        }); // Vue.
+
+
+    </script>
+
+</body>
+</html>

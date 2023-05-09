@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sample9</title>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="app1">
+            {{ message1 }} <br>
+            {{ message2 }}
+        </div>
+
+        <hr/>
+        
+        <div id="app2">
+            {{ message1 }} <br>
+            {{ message2 }}
+        </div>
+    </div>
+
+
+    <script>
+        var datas = {
+            message1: 'message1',
+            message2: 'message2'
+        };
+
+        console.debug('- datas:', datas);
+
+        var vue = new Vue({
+            el: '#app1, #app2',
+            data: datas,
+
+
+            //----------------- Vue lifecycle properties -----------------//
+            // Each Lifecycle methods called 'Lifecycle Hook'
+
+            beforeCreate: function f_beforeCreate(params) {
+                console.debug('- Vue::beforeCreate() invoked. params: ', params);
+            }, // beforeCreate
+
+            created: function f_created(params) {
+                console.debug('- Vue::created() invoked. params: ', params);
+            }, // created
+
+            beforeMount: function f_beforeMount(params) {
+                console.debug('- Vue::beforeMount() invoked. params: ', params);
+            }, // beforeMount
+
+            mounted: function f_mounted(params) {
+                console.debug('- Vue::mounted() invoked. params: ', params);
+            }, // mounted
+
+            beforeUpdate: function f_beforeUpdate(params) {
+                console.debug('- Vue::beforeUpdate() invoked. params: ', params);
+            }, // beforeUpdate
+
+            updated: function f_updated(params) {
+                console.debug('- Vue::updated() invoked. params: ', params);
+            }, // updated
+
+            beforeDestroy: function f_beforeDestroy(params) {
+                console.debug('- Vue::beforeDestroy() invoked. params: ', params);
+            }, // beforeDestroy
+
+            destroyed: function f_destroyed(params) {
+                console.debug('- Vue::destroyed() invoked. params: ', params);
+            } // destroyed
+
+        }); // Vue.
+
+        console.debug('- vue:', vue);
+
+    </script>
+</body>
+</html> 
